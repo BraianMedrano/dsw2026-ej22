@@ -1,25 +1,51 @@
-# dsw2026-ej22
+# Avance TPI — Unidad 4
 
-Este proyecto requiere que implementes la funcionalidad para abrir el menú de navegación (`nav`) desde el botón correspondiente cuando la página está en modo móvil.
+Avance visual del frontend del Trabajo Práctico Integrador. Esta etapa incluye únicamente las páginas indicadas por el profesor y no realiza conexión con el backend.
 
-**Instrucciones:**
-- Utiliza JavaScript para detectar el clic en el botón de menú.
-- Al hacer clic, muestra u oculta el menú de navegación.
-- Asegúrate de que la funcionalidad solo se active en resoluciones móviles.
+## Alcance
 
-Puedes usar `classList.toggle` para mostrar/ocultar el menú.
+- Login de administrador.
+- Panel de administración.
+- Módulo de especialidades:
+  - Listado de especialidades.
+  - Búsqueda de especialidades.
+  - Creación de especialidades.
 
-Ejemplo básico:
+Las pantallas deben seguir lo más fielmente posible los mockups del TPI y utilizar datos simulados.
 
-```js
-const menuBtn = document.getElementById('menu-btn');
-const nav = document.getElementById('nav');
+## División de tareas
 
-menuBtn.addEventListener('click', () => {
-  nav.classList.toggle('open');
-});
-```
+### Tobias — Base visual y login de administrador
 
-No olvides agregar los estilos CSS necesarios para que el menú se oculte y se muestre correctamente en modo móvil.
+- Preparar la estructura común del frontend.
+- Crear la pantalla de login de administrador.
+- Maquetar los campos de usuario y contraseña.
+- Agregar la validación visual de los campos obligatorios.
+- Definir los estilos base compartidos: colores, tipografías, botones, formularios y espaciados.
+- Asegurar que el login se adapte a pantallas de escritorio y dispositivos móviles.
 
-### Seguir estilos de UI del TPI
+### Fernando Chumba — Panel de administración
+
+- Crear la pantalla principal del administrador.
+- Maquetar el sidebar y la navegación interna.
+- Agregar las tarjetas de resumen del panel.
+- Crear el listado visual de médicos mostrado en el dashboard.
+- Incorporar botones y enlaces visuales hacia las distintas secciones.
+- Adaptar el panel para resoluciones móviles.
+
+### Braian — Módulo de especialidades
+
+- Crear el listado visual de especialidades.
+- Agregar la búsqueda por nombre.
+- Crear el formulario de alta de especialidades.
+- Incorporar validaciones visuales para nombre y descripción.
+- Agregar estados visuales de listado vacío, búsqueda sin resultados y guardado exitoso.
+- Mantener el mismo diseño utilizado en el login y el panel de administración.
+
+## Criterios comunes
+
+- Implementar con HTML, CSS y JavaScript vanilla.
+- No conectar ninguna pantalla al backend.
+- Utilizar datos estáticos o simulados.
+- Mantener una interfaz fiel a los mockups del TPI.
+- Todos los integrantes deben aportar commits al branch `development`.
