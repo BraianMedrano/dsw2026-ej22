@@ -19,7 +19,7 @@ const defaultDoctors = [
   { id: 5, name: "Dr. Carlos Méndez", specialty: "Traumatología", status: "Activo", initials: "CM", license: "MN-78120" }
 ];
 
-// Métodos de acceso y persistencia con LocalStorage
+
 function getStoredSpecialties() {
   const data = localStorage.getItem(STORAGE_SPECIALTIES_KEY);
   if (!data) {
@@ -58,7 +58,7 @@ function saveDoctorsToStorage(doctors) {
   localStorage.setItem(STORAGE_DOCTORS_KEY, JSON.stringify(doctors));
 }
 
-// Variables de estado
+
 let doctorsData = getStoredDoctors();
 let currentPage = 1;
 const itemsPerPage = 3;
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const kpiDoctors = document.getElementById("kpi-doctors");
   const kpiSpecialties = document.getElementById("kpi-specialties");
 
-  // Mostrar mensaje flotante tipo Toast
+
   function showToast(message) {
     if (!toastNotification) return;
     toastNotification.textContent = message;
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3200);
   }
 
-  // Sincronizar valores de las tarjetas KPI desde el estado y LocalStorage
+
   function updateKPIs() {
     if (kpiDoctors) {
       kpiDoctors.textContent = String(doctorsData.length);
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Creador nativo de iconos vectoriales SVG con DOM Namespace
+
   function createSvgIcon(type) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("class", "action-svg");
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return svg;
   }
 
-  // Renderizado dinámico de la tabla utilizando métodos nativos de DOM
+
   function renderTable() {
     if (!tableBody) return;
 
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       paginatedItems.forEach(doc => {
         const tr = document.createElement("tr");
 
-        // Columna Doctor (Avatar + Nombre)
+
         const tdDoc = document.createElement("td");
         const wrapper = document.createElement("div");
         wrapper.classList.add("doctor-cell");
@@ -184,11 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
         wrapper.appendChild(nameSpan);
         tdDoc.appendChild(wrapper);
 
-        // Columna Especialidad
+
         const tdSpec = document.createElement("td");
         tdSpec.textContent = doc.specialty;
 
-        // Columna Estado
+
         const tdStatus = document.createElement("td");
         const badge = document.createElement("span");
         badge.classList.add("status-badge");
@@ -203,13 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
         badge.appendChild(document.createTextNode(doc.status));
         tdStatus.appendChild(badge);
 
-        // Columna Acciones
+
         const tdActions = document.createElement("td");
         tdActions.classList.add("text-right");
         const actWrapper = document.createElement("div");
         actWrapper.classList.add("action-buttons");
 
-        // Botón Ver Ficha
+   
         const btnView = document.createElement("button");
         btnView.type = "button";
         btnView.classList.add("btn-icon-action");
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btnView.appendChild(createSvgIcon("eye"));
         btnView.addEventListener("click", () => openDetailModal(doc));
 
-        // Botón Eliminar / Dar de Baja
+
         const btnDelete = document.createElement("button");
         btnDelete.type = "button";
         btnDelete.classList.add("btn-icon-action", "btn-delete");
@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPagination(totalItems, totalPages);
   }
 
-  // Paginador generado con DOM nativo
+
   function renderPagination(totalItems, totalPages) {
     if (!paginationInfo || !paginationControls) return;
 
@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
       paginationControls.removeChild(paginationControls.firstChild);
     }
 
-    // Botón Anterior
+
     const btnPrev = document.createElement("button");
     btnPrev.type = "button";
     btnPrev.classList.add("btn-page");
@@ -268,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     paginationControls.appendChild(btnPrev);
 
-    // Botones con Números de Página
+  
     for (let i = 1; i <= totalPages; i++) {
       const btnNum = document.createElement("button");
       btnNum.type = "button";
@@ -285,7 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
       paginationControls.appendChild(btnNum);
     }
 
-    // Botón Siguiente
     const btnNext = document.createElement("button");
     btnNext.type = "button";
     btnNext.classList.add("btn-page");
@@ -301,7 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
     paginationControls.appendChild(btnNext);
   }
 
-  // Cerrar cualquier modal abierto
   function closeModal() {
     if (!modalContainer) return;
     while (modalContainer.firstChild) {
@@ -311,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalContainer.setAttribute("aria-hidden", "true");
   }
 
-  // Modal: Agregar Doctor
+
   function openAddDoctorModal() {
     if (!modalContainer) return;
     closeModal();
@@ -319,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const card = document.createElement("div");
     card.classList.add("modal-card");
 
-    // Header del modal
+
     const header = document.createElement("div");
     header.classList.add("modal-header");
     const title = document.createElement("h3");
@@ -333,11 +331,10 @@ document.addEventListener("DOMContentLoaded", () => {
     header.appendChild(title);
     header.appendChild(btnClose);
 
-    // Formulario
     const form = document.createElement("form");
     form.classList.add("modal-body");
 
-    // Campo: Nombre Completo
+
     const groupName = document.createElement("div");
     groupName.classList.add("form-group");
     const labelName = document.createElement("label");
@@ -351,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
     groupName.appendChild(labelName);
     groupName.appendChild(inputName);
 
-    // Campo: Especialidad (Alimentado desde LocalStorage)
+
     const groupSpec = document.createElement("div");
     groupSpec.classList.add("form-group");
     const labelSpec = document.createElement("label");
@@ -371,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
     groupSpec.appendChild(labelSpec);
     groupSpec.appendChild(selectSpec);
 
-    // Campo: Número de Licencia
+
     const groupLicense = document.createElement("div");
     groupLicense.classList.add("form-group");
     const labelLicense = document.createElement("label");
@@ -390,7 +387,6 @@ document.addEventListener("DOMContentLoaded", () => {
     form.appendChild(groupSpec);
     form.appendChild(groupLicense);
 
-    // Botones del pie del modal
     const footer = document.createElement("div");
     footer.classList.add("modal-footer");
 
@@ -408,7 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
     footer.appendChild(btnCancel);
     footer.appendChild(btnSubmit);
 
-    // Envío del formulario
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const nameVal = inputName.value.trim();
@@ -447,7 +443,6 @@ document.addEventListener("DOMContentLoaded", () => {
     inputName.focus();
   }
 
-  // Modal: Ficha Detallada
   function openDetailModal(doc) {
     if (!modalContainer) return;
     closeModal();
@@ -503,7 +498,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalContainer.setAttribute("aria-hidden", "false");
   }
 
-  // Modal: Confirmación de Baja
+
   function openDeleteModal(doc) {
     if (!modalContainer) return;
     closeModal();
@@ -564,7 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalContainer.setAttribute("aria-hidden", "false");
   }
 
-  // Modal: Agregar Nueva Especialidad (Guarda directamente en LocalStorage)
+
   function openAddSpecialtyModal() {
     if (!modalContainer) return;
     closeModal();
@@ -640,7 +635,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
   }
 
-  // Búsqueda en tiempo real
+
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       currentSearchTerm = e.target.value.toLowerCase().trim();
@@ -649,7 +644,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Toggle Menú lateral en Mobile
   if (menuToggle && sidebar) {
     menuToggle.addEventListener("click", () => {
       const isOpen = sidebar.classList.toggle("is-open");
@@ -658,14 +652,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Botones de acción del encabezado
   const btnAddDoc = document.getElementById("btn-add-doctor");
   if (btnAddDoc) btnAddDoc.addEventListener("click", openAddDoctorModal);
 
   const btnAddSpec = document.getElementById("btn-add-specialty");
   if (btnAddSpec) btnAddSpec.addEventListener("click", openAddSpecialtyModal);
 
-  // Enlaces de navegación con feedback accesible
+
   ["nav-doctors", "nav-specialties", "nav-search", "nav-settings"].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -676,14 +669,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Cerrar modales con tecla Escape
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modalContainer && !modalContainer.classList.contains("hidden")) {
       closeModal();
     }
   });
 
-  // Inicialización de la vista
+
   updateKPIs();
   renderTable();
 });

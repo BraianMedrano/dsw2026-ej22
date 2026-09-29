@@ -7,10 +7,8 @@
   <link rel="stylesheet" href="dashboard_style.css">
 </head>
 <body>
-  <!-- Enlace accesible para saltar directo al contenido principal -->
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-  <!-- Header visible en pantallas móviles -->
   <header class="mobile-header" role="banner">
     <div class="brand">
       <span class="brand-title">Admin Portal</span>
@@ -24,7 +22,6 @@
   </header>
 
   <div class="layout-container">
-    <!-- Barra lateral de navegación (Sidebar) -->
     <aside id="sidebar" class="sidebar" aria-label="Navegación principal">
       <div class="sidebar-header desktop-only">
         <div class="brand">
@@ -114,7 +111,7 @@
       </div>
     </aside>
 
-    <!-- Contenido Principal -->
+
     <main id="main-content" class="main-content" role="main">
       <section class="page-header" aria-labelledby="page-title">
         <div class="header-text">
@@ -139,7 +136,7 @@
         </div>
       </section>
 
-      <!-- Tarjetas de Resumen (KPIs) -->
+ 
       <section class="kpi-grid" aria-label="Métricas de resumen">
         <article class="kpi-card" tabindex="0">
           <div class="kpi-icon-wrapper" aria-hidden="true">
@@ -190,7 +187,7 @@
         </article>
       </section>
 
-      <!-- Tabla del Directorio Médico -->
+
       <section class="table-section" aria-labelledby="directory-title">
         <div class="table-header-bar">
           <h2 id="directory-title" class="section-title">Directorio de Profesionales Médicos</h2>
@@ -215,29 +212,28 @@
               </tr>
             </thead>
             <tbody id="doctors-table-body">
-              <!-- Renderizado de filas dinámico con métodos de DOM nativo -->
             </tbody>
           </table>
         </div>
 
-        <!-- Paginador accesible -->
+ 
         <nav class="pagination-footer" aria-label="Controles de paginación">
           <p class="pagination-info" id="pagination-info">Cargando resultados...</p>
           <div class="pagination-controls" id="pagination-controls">
-            <!-- Botones calculados y creados con JavaScript nativo -->
+       
           </div>
         </nav>
       </section>
     </main>
   </div>
 
-  <!-- Contenedor general para Modales Accesibles -->
+
   <div id="modal-container" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true"></div>
 
-  <!-- Componente Toast para Notificaciones Visuales Rápidas -->
+
   <div id="toast-notification" class="toast hidden" role="status" aria-live="polite"></div>
 
-  <!-- Anunciador dinámico para lectores de pantalla -->
+
   <div id="live-announcer" class="visually-hidden" aria-live="polite"></div>
 
   <script src="dashboard.js"></script>

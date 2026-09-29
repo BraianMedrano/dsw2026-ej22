@@ -33,7 +33,7 @@ body {
   line-height: 1.5;
 }
 
-/* Clases de Accesibilidad Universal */
+
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
@@ -70,7 +70,7 @@ body {
   outline-offset: 2px;
 }
 
-/* Layout y Envoltorios */
+
 .layout-container {
   display: flex;
   min-height: 100vh;
@@ -290,7 +290,7 @@ body {
   background-color: var(--color-bg);
 }
 
-/* Tarjetas KPI */
+
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -506,7 +506,7 @@ body {
   height: 15px;
 }
 
-/* Paginador */
+
 .pagination-footer {
   padding: 1rem 1.25rem;
   display: flex;
@@ -543,7 +543,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Modales */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -625,7 +624,7 @@ body {
   font-family: inherit;
 }
 
-/* Toast flotante */
+
 .toast {
   position: fixed;
   bottom: 20px;
