@@ -1,16 +1,7 @@
-// Claves asignadas para el LocalStorage
-const STORAGE_SPECIALTIES_KEY = "medportal_specialties";
+// Clave del LocalStorage para doctores (las especialidades se manejan en especialidades_storage.js)
 const STORAGE_DOCTORS_KEY = "medportal_doctors";
 
 // Conjuntos iniciales por defecto (si LocalStorage no contiene registros aún)
-const defaultSpecialties = [
-  "Cardiología",
-  "Neurología",
-  "Pediatría",
-  "Dermatología",
-  "Traumatología"
-];
-
 const defaultDoctors = [
   { id: 1, name: "Dr. James Wilson", specialty: "Cardiología", status: "Activo", initials: "JW", license: "MN-45210" },
   { id: 2, name: "Dr. Elena Rodriguez", specialty: "Neurología", status: "Activo", initials: "ER", license: "MN-89231" },
@@ -19,27 +10,6 @@ const defaultDoctors = [
   { id: 5, name: "Dr. Carlos Méndez", specialty: "Traumatología", status: "Activo", initials: "CM", license: "MN-78120" }
 ];
 
-
-function getStoredSpecialties() {
-  const data = localStorage.getItem(STORAGE_SPECIALTIES_KEY);
-  if (!data) {
-    localStorage.setItem(STORAGE_SPECIALTIES_KEY, JSON.stringify(defaultSpecialties));
-    return defaultSpecialties;
-  }
-  try {
-    return JSON.parse(data);
-  } catch (e) {
-    return defaultSpecialties;
-  }
-}
-
-function saveSpecialtyToStorage(newSpecialty) {
-  const specs = getStoredSpecialties();
-  if (!specs.includes(newSpecialty)) {
-    specs.push(newSpecialty);
-    localStorage.setItem(STORAGE_SPECIALTIES_KEY, JSON.stringify(specs));
-  }
-}
 
 function getStoredDoctors() {
   const data = localStorage.getItem(STORAGE_DOCTORS_KEY);
@@ -96,8 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
       kpiDoctors.textContent = String(doctorsData.length);
     }
     if (kpiSpecialties) {
-      const storedSpecs = getStoredSpecialties();
-      kpiSpecialties.textContent = String(storedSpecs.length);
+      // Solo cuenta las especialidades activas
+      const activeSpecs = obtenerEspecialidades().filter(sp => sp.status === "Activa");
+      kpiSpecialties.textContent = String(activeSpecs.length);
     }
   }
 
@@ -358,11 +329,11 @@ document.addEventListener("DOMContentLoaded", () => {
     selectSpec.id = "input-doc-spec";
     selectSpec.classList.add("form-control");
 
-    const availableSpecs = getStoredSpecialties();
+    const availableSpecs = obtenerEspecialidades();
     availableSpecs.forEach(sp => {
       const opt = document.createElement("option");
-      opt.value = sp;
-      opt.textContent = sp;
+      opt.value = sp.name;
+      opt.textContent = sp.name;
       selectSpec.appendChild(opt);
     });
     groupSpec.appendChild(labelSpec);
@@ -560,82 +531,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  function openAddSpecialtyModal() {
-    if (!modalContainer) return;
-    closeModal();
-
-    const card = document.createElement("div");
-    card.classList.add("modal-card");
-
-    const header = document.createElement("div");
-    header.classList.add("modal-header");
-    const title = document.createElement("h3");
-    title.textContent = "Agregar Nueva Especialidad";
-    const btnClose = document.createElement("button");
-    btnClose.type = "button";
-    btnClose.classList.add("btn-close-modal");
-    btnClose.textContent = "×";
-    btnClose.addEventListener("click", closeModal);
-    header.appendChild(title);
-    header.appendChild(btnClose);
-
-    const form = document.createElement("form");
-    form.classList.add("modal-body");
-
-    const group = document.createElement("div");
-    group.classList.add("form-group");
-    const label = document.createElement("label");
-    label.setAttribute("for", "input-new-spec");
-    label.textContent = "Nombre de la Especialidad:";
-    const input = document.createElement("input");
-    input.type = "text";
-    input.id = "input-new-spec";
-    input.required = true;
-    input.placeholder = "Ej: Oftalmología";
-    input.classList.add("form-control");
-    group.appendChild(label);
-    group.appendChild(input);
-    form.appendChild(group);
-
-    const footer = document.createElement("div");
-    footer.classList.add("modal-footer");
-
-    const btnCancel = document.createElement("button");
-    btnCancel.type = "button";
-    btnCancel.classList.add("btn", "btn-outline");
-    btnCancel.textContent = "Cancelar";
-    btnCancel.addEventListener("click", closeModal);
-
-    const btnSubmit = document.createElement("button");
-    btnSubmit.type = "submit";
-    btnSubmit.classList.add("btn", "btn-primary");
-    btnSubmit.textContent = "Guardar en LocalStorage";
-
-    footer.appendChild(btnCancel);
-    footer.appendChild(btnSubmit);
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const val = input.value.trim();
-      if (!val) return;
-
-      saveSpecialtyToStorage(val);
-      updateKPIs();
-      closeModal();
-      showToast(`Especialidad "${val}" guardada en LocalStorage.`);
-    });
-
-    card.appendChild(header);
-    card.appendChild(form);
-    form.appendChild(footer);
-
-    modalContainer.appendChild(card);
-    modalContainer.classList.remove("hidden");
-    modalContainer.setAttribute("aria-hidden", "false");
-    input.focus();
-  }
-
-
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       currentSearchTerm = e.target.value.toLowerCase().trim();
@@ -656,10 +551,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnAddDoc) btnAddDoc.addEventListener("click", openAddDoctorModal);
 
   const btnAddSpec = document.getElementById("btn-add-specialty");
-  if (btnAddSpec) btnAddSpec.addEventListener("click", openAddSpecialtyModal);
+  // El alta de especialidades se hace en su propia página
+  if (btnAddSpec) {
+    btnAddSpec.addEventListener("click", () => {
+      window.location.href = "especialidad_crear.html";
+    });
+  }
 
 
-  ["nav-doctors", "nav-specialties", "nav-search", "nav-settings"].forEach(id => {
+  ["nav-doctors", "nav-search", "nav-settings"].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.addEventListener("click", (e) => {
