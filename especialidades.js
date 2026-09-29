@@ -28,19 +28,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Usamos textContent para no interpretar HTML escrito por el usuario
       const celdaNombre = document.createElement("td");
-      celdaNombre.textContent = especialidad.name;
-      celdaNombre.classList.add("fw-bold");
+      const nombre = document.createElement("span");
+      nombre.textContent = especialidad.name;
+      nombre.classList.add("fw-bold");
+      celdaNombre.innerHTML = '<span class="spec-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>';
+      celdaNombre.appendChild(nombre);
 
       const celdaDescripcion = document.createElement("td");
       celdaDescripcion.textContent = especialidad.description;
 
       const celdaEstado = document.createElement("td");
       const badge = document.createElement("span");
-      badge.textContent = especialidad.status;
       badge.classList.add("badge");
+      // El mockup muestra el estado en inglés
       if (especialidad.status === "Activa") {
+        badge.textContent = "Active";
         badge.classList.add("badge-active");
       } else {
+        badge.textContent = "Inactive";
         badge.classList.add("badge-inactive");
       }
       celdaEstado.appendChild(badge);
@@ -48,7 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Acciones solo visuales en esta etapa
       const celdaAcciones = document.createElement("td");
       celdaAcciones.classList.add("text-right");
-      celdaAcciones.innerHTML = '<span class="icon-action" title="Editar">✎</span><span class="icon-action" title="Eliminar">🗑</span>';
+      celdaAcciones.innerHTML =
+        '<svg class="icon icon-action" viewBox="0 0 24 24"><title>Editar</title><path d="M17 3l4 4L8 20H4v-4z"/></svg>' +
+        '<svg class="icon icon-action" viewBox="0 0 24 24"><title>Eliminar</title><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15M10 10v7M14 10v7"/></svg>';
 
       fila.appendChild(celdaNombre);
       fila.appendChild(celdaDescripcion);
@@ -60,13 +67,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Actualiza las tarjetas de resumen
   function mostrarResumen() {
-    const activas = especialidades.filter(function (e) {
-      return e.status === "Activa";
+    // Las especialidades nuevas usan Date.now() como id,
+    // así que las creadas este mes tienen un id mayor al inicio del mes
+    const hoy = new Date();
+    const inicioDelMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1).getTime();
+
+    const nuevas = especialidades.filter(function (e) {
+      return e.id >= inicioDelMes;
+    });
+
+    const nombresNuevas = nuevas.map(function (e) {
+      return e.name;
     });
 
     document.getElementById("total-especialidades").textContent = especialidades.length;
-    document.getElementById("total-activas").textContent = activas.length;
-    document.getElementById("total-inactivas").textContent = especialidades.length - activas.length;
+    document.getElementById("total-extra").textContent = "↗ +" + nuevas.length + " este mes";
+
+    // padStart agrega un cero adelante: 3 -> "03"
+    document.getElementById("nuevas-cantidad").textContent = String(nuevas.length).padStart(2, "0");
+    if (nuevas.length > 0) {
+      document.getElementById("nuevas-nombres").textContent = nombresNuevas.join(", ");
+    } else {
+      document.getElementById("nuevas-nombres").textContent = "Sin altas este mes";
+    }
   }
 
   // Búsqueda por nombre mientras se escribe

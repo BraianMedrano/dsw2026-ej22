@@ -20,17 +20,39 @@
         <span class="brand-subtitle">Gestión Hospitalaria</span>
       </div>
 
+      <!-- Los íconos son SVG simples de línea -->
       <nav>
-        <a href="dashboard.html" class="nav-link">Panel Control</a>
-        <a href="especialidades.html" class="nav-link active">Especialidades</a>
-        <a href="#" class="nav-link">Médicos</a>
-        <a href="#" class="nav-link">Pacientes</a>
-        <a href="#" class="nav-link">Configuración</a>
+        <a href="dashboard.html" class="nav-link">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Panel Control
+        </a>
+        <a href="especialidades.html" class="nav-link active">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M9 7V4h6v3M12 11v6M9 14h6"/></svg>
+          Especialidades
+        </a>
+        <a href="#" class="nav-link">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><circle cx="9" cy="12" r="2"/><path d="M6 17c0-2 6-2 6 0M14 11h4M14 15h4M9 5V3h6v2"/></svg>
+          Médicos
+        </a>
+        <a href="#" class="nav-link">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 12 0v1M16 4a4 4 0 0 1 0 8M22 21v-1a6 6 0 0 0-4-5.6"/></svg>
+          Pacientes
+        </a>
+        <a href="#" class="nav-link">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>
+          Configuración
+        </a>
       </nav>
 
       <div class="sidebar-footer">
-        <a href="#" class="nav-link">Help Center</a>
-        <a href="login.html" class="nav-link">Logout</a>
+        <a href="#" class="nav-link">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          Help Center
+        </a>
+        <a href="login.html" class="nav-link">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Logout
+        </a>
         <div class="user-card">
           <span class="user-avatar">AU</span>
           <div>
@@ -48,7 +70,10 @@
           <p class="text-muted">Administre las categorías médicas, servicios y disponibilidad del personal especializado.</p>
         </div>
         <div class="header-actions">
-          <input type="search" id="buscador" class="input-search" placeholder="Buscar especialidad...">
+          <div class="search-box">
+            <svg class="icon icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input type="search" id="buscador" class="input-search" placeholder="Buscar especialidad...">
+          </div>
           <a href="especialidad_crear.html" class="btn btn-primary">+ Nueva Especialidad</a>
         </div>
       </section>
@@ -75,18 +100,42 @@
 
       <section class="stats">
         <article class="stat-card">
-          <p class="stat-title">Total Especialidades</p>
-          <p class="stat-value" id="total-especialidades">0</p>
+          <div>
+            <p class="stat-title">Total Especialidades</p>
+            <p class="stat-value" id="total-especialidades">0</p>
+            <p class="stat-extra stat-extra-green" id="total-extra"></p>
+          </div>
+          <span class="stat-icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </span>
         </article>
+
+        <!-- Dato simulado: todavía no hay turnos para calcularlo -->
         <article class="stat-card">
-          <p class="stat-title">Activas</p>
-          <p class="stat-value" id="total-activas">0</p>
+          <div>
+            <p class="stat-title">Más Demandada</p>
+            <p class="stat-value">Cardiología</p>
+            <p class="stat-extra">15% incremento en citas</p>
+          </div>
+          <span class="stat-icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          </span>
         </article>
+
         <article class="stat-card stat-card-green">
-          <p class="stat-title">Inactivas</p>
-          <p class="stat-value" id="total-inactivas">0</p>
+          <div>
+            <p class="stat-title">Nuevas Este Mes</p>
+            <p class="stat-value" id="nuevas-cantidad">00</p>
+            <p class="stat-extra fw-bold" id="nuevas-nombres"></p>
+          </div>
+          <span class="stat-icon stat-icon-green">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+          </span>
         </article>
       </section>
+
+      <!-- Imagen decorativa del mockup, reemplazada por un degradado -->
+      <div class="banner"></div>
     </main>
   </div>
 
