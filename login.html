@@ -1,25 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio de Sesion</title>
+  <meta name="description" content="Acceso administrativo de MedPortal">
+  <title>Acceso administrativo | MedPortal</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="login_style.css">
-
-  <script src="login.js"></script>
+  <script src="login.js" defer></script>
 </head>
 <body>
-  <div class="login-container">
-    <form>
-      <label for="username">Usuario:</label>
-      <input type="text" id="username" name="username" required>
-      <br>
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" required>
-      <br>
-      <button type="submit">Iniciar Sesión</button>
-    </form>
-  </div>
+  <main class="login-page">
+    <section class="login-card" aria-labelledby="login-title">
+      <div class="login-brand" aria-label="MedPortal">
+        <span class="brand-mark" aria-hidden="true">+</span>
+        <span class="brand-name">MedPortal</span>
+      </div>
+
+      <div class="login-heading">
+        <p class="eyebrow">Portal administrativo</p>
+        <h1 id="login-title">Bienvenido de nuevo</h1>
+        <p>Ingresa tus datos para acceder al panel de gestión médica.</p>
+      </div>
+
+      <form id="login-form" class="login-form" novalidate>
+        <div class="form-field">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="admin@system.com" aria-describedby="email-error" required>
+          <p class="field-error" id="email-error" role="alert"></p>
+        </div>
+
+        <div class="form-field">
+          <label for="password">Contraseña</label>
+          <div class="password-wrapper">
+            <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Ingresa tu contraseña" aria-describedby="password-error" required>
+            <button type="button" class="password-toggle" id="password-toggle" aria-label="Mostrar contraseña" aria-pressed="false">Mostrar</button>
+          </div>
+          <p class="field-error" id="password-error" role="alert"></p>
+        </div>
+
+        <p class="form-feedback" id="form-feedback" role="alert"></p>
+        <button type="submit" class="login-button">Ingresar al panel</button>
+      </form>
+
+      <p class="login-note">
+        <span class="note-icon" aria-hidden="true">i</span>
+        Acceso exclusivo para administradores autorizados.
+      </p>
+    </section>
+  </main>
 </body>
 </html>
